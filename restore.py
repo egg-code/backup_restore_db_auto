@@ -30,6 +30,23 @@ logging.info(f"Latest backup file found: {latest_backup_file}")
 # Set db password enviroment variable
 os.environ['PGPASSWORD'] = DB_PASSWORD
 
+# Terminate any existing conn to the database
+terminate_command = [
+    "psql",
+    '-h', DB_HOST,
+    '-p', DB_PORT,
+    '-U', DB_USER,
+    '-d', 'postgres', # Connect to the default postgres db to terminate connections to the target db
+    '-c', f"SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '{DB_NAME}' AND pid <> pg_backend_pid();"
+]
+try:
+    logging.info(f"Terminating existing connections to database: {DB_NAME}")
+    subprocess.run(terminate_command, check=True)
+    logging.info(f"Existing connections to {DB_NAME} terminated successfully!")
+except subprocess.CalledProcessError as e:
+    logging.error(f"Failed to terminate connections to {DB_NAME} with error: {e}")
+    exit(1)
+
 # First, drop the existing database to ensure a clean restore
 drop_command = [
     "psql",
