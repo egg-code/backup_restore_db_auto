@@ -35,19 +35,19 @@ jobs:
           python3 backup.py
 
       - name: Upload backup to backup directory
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backups
           path: backups/
 
       - name: Upload logs to logs directory
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logs
           path: logs/
 
       - name: Upload backup artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: db-backup
           path: backups/*.dump
