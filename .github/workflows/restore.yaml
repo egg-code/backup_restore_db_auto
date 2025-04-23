@@ -3,6 +3,9 @@ name: Restore Workflow
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write # Required to push log files to the repo
+
 jobs:
   restore:
     runs-on: ubuntu-latest
