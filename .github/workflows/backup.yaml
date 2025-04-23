@@ -2,7 +2,7 @@ name: "Backup Workflow"
 on:
   schedule:
     - cron: "0 0 * * *" # Runs every day at midnight
-  workkflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   backup:
