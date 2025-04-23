@@ -1,0 +1,9 @@
+2025-04-23 16:12:48,807:INFO:Latest backup file found: ./backups/neondb_2025-04-23_15-51-07.dump
+2025-04-23 16:12:48,807:INFO:Terminating existing connections to database: neondb
+2025-04-23 16:12:50,158:INFO:Existing connections to neondb terminated successfully!
+2025-04-23 16:12:50,158:INFO:Dropping database: neondb
+2025-04-23 16:12:51,412:INFO:Database neondb dropped successfully!
+2025-04-23 16:12:51,412:INFO:Creating database: neondb
+2025-04-23 16:12:53,107:INFO:Database neondb created successfully!
+2025-04-23 16:12:53,108:INFO:Starting restore for database: neondb from ./backups/neondb_2025-04-23_15-51-07.dump
+2025-04-23 16:12:58,998:INFO:Restore completed successfully!
