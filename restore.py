@@ -46,7 +46,7 @@ create_command = [
     '-p', DB_PORT,
     '-U', DB_USER,
     '-d', 'postgres', # Connect to the default postgres db to create the target db
-    '-c', f"CREATE DATABASE {DB_NAME}:"
+    '-c', f"CREATE DATABASE {DB_NAME};"
 ]
 
 try:
