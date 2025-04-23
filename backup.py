@@ -37,7 +37,9 @@ pg_command = [
     '-p', DB_PORT,
     '-U', DB_USER,
     '-F', 'c', # Custom format to allow for compression
-    '-v', # Verbose mode to capture detailed output
+    '-v',  # Verbose mode to capture detailed output
+    '--no-owner',  # Do not include ownership information
+    '--no-privileges',  # Do not include privilege information
     '-f', backup_path,
     DB_NAME
 ]
