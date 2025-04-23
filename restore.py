@@ -25,25 +25,38 @@ if not backup_files:
     exit(1) # Exit if no backup files are found
 
 latest_backup_file = backup_files[0]
-logging.info(f"Latest backup file found: {latest_backup_file}")\
+logging.info(f"Latest backup file found: {latest_backup_file}")
 
 # Set db password enviroment variable
 os.environ['PGPASSWORD'] = DB_PASSWORD
 
 # First, drop the existing database to ensure a clean restore
-drop_create_command= [
+drop_command = [
     "psql",
     '-h', DB_HOST,
     '-p', DB_PORT,
     '-U', DB_USER,
     '-d', 'postgres', # Connect to the default postgres db to drop the target db
-    '-c', f"DROP DATABASE IF EXISTS {DB_NAME}; CREATE DATABASE {DB_NAME};"
+    '-c', f"DROP DATABASE IF EXISTS {DB_NAME};"
+]
+
+create_command = [
+    "psql",
+    '-h', DB_HOST,
+    '-p', DB_PORT,
+    '-U', DB_USER,
+    '-d', 'postgres', # Connect to the default postgres db to create the target db
+    '-c', f"CREATE DATABASE {DB_NAME}:"
 ]
 
 try:
-    logging.info(f"Dropping and creating database: {DB_NAME}")
-    subprocess.run(drop_create_command, check=True)
-    logging.info(f"Database {DB_NAME} dropped and created successfully!")
+    logging.info(f"Dropping database: {DB_NAME}")
+    subprocess.run(drop_command, check=True)
+    logging.info(f"Database {DB_NAME} dropped successfully!")
+
+    logging.info(f"Creating database: {DB_NAME}")
+    subprocess.run(create_command, check=True)
+    logging.info(f"Database {DB_NAME} created successfully!")
 except subprocess.CalledProcessError as e:
     logging.error(f"Failed to drop and create database {DB_NAME} with error: {e}")
     exit(1)
