@@ -3,6 +3,10 @@ import os
 from datetime import datetime
 import logging
 
+# Ensure the logs directory exists
+if not os.path.exists('./logs'):
+    os.makedirs('./logs')
+
 # Configure logging
 logging.basicConfig(filename='./logs/backup.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
