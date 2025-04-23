@@ -4,6 +4,9 @@ on:
     - cron: "0 0 * * *" # Runs every day at midnight
   workflow_dispatch:
 
+permissions:
+  contents: write # Required to push changes to the repo
+
 jobs:
   backup:
     runs-on: ubuntu-latest
@@ -34,20 +37,10 @@ jobs:
         run: |
           python3 backup.py
 
-      - name: Upload backup to backup directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: backups
-          path: backups/
-
-      - name: Upload logs to logs directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs
-          path: logs/
-
-      - name: Upload backup artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: db-backup
-          path: backups/*.dump
+      - name: Commit and push backup and log files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add backups/*.dump logs/*
+          git commit -m "Automated backup and log update - $(date -u +"%Y-%m-%d %H:%M:%S UTC")" || echo "No changes to commit"
+          git push
