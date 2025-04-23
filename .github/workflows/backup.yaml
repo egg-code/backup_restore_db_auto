@@ -33,3 +33,21 @@ jobs:
       - name: Run backup script
         run: |
           python3 backup.py
+
+      - name: Upload backup to backup directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: backups
+          path: backups/
+
+      - name: Upload logs to logs directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: logs/
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: db-backup
+          path: backups/*.dump
