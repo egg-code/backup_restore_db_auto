@@ -20,7 +20,7 @@ DB_PORT = '5432'
 # Define backup directory and filename
 backup_dir = './backups'
 if not os.path.exists(backup_dir):
-    os.makedirs(backup_dir) # Create backup directory if it doesn't exist)
+    os.makedirs(backup_dir) # Create backup directory if it doesn't exist
 
 # Create backup file with timestamp
 timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
